@@ -1,0 +1,32 @@
+* {
+    background-color: rgb(20,20,20);
+    color: white;
+    font-family: sans-serif;
+}
+
+.top-bar {
+    padding: 1px;
+}
+
+#main-nav .nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+#main-nav .nav-item {
+    margin: 0 10px;
+}
+
+#main-nav .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+#main-nav .nav-link:hover {
+    transition: background-color 0.3s ease-in-out;
+    background-color: rgb(60,60,60);
+}
