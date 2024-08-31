@@ -2,9 +2,8 @@
 html {
     background-color: rgb(20,20,20);
     margin: 0;
-    padding: 0;
+    padding: 5px;
     box-sizing: border-box;
-    font-size: 16px; /* Base font size for scaling */
 }
 
 body {
@@ -37,10 +36,10 @@ hr {
 }
 
 #main-nav .nav-link {
-    font-size: 1rem;
+    font-size: large;
     color: white;
     text-decoration: none;
-    padding: 0.625rem;
+    padding: 10px;
 }
 
 #main-nav .nav-link:hover {
@@ -49,13 +48,14 @@ hr {
 }
 
 .bottom-header {
-    font-size: 2rem;
+    font-size: xx-large;
     text-align: center;
     margin: 0;
 }
 
 #bottom-header-text {
-    padding: 6.25rem 0; 
+    padding-top: 100px; 
+    padding-bottom: 100px;
     color: white;
     text-align: center;
 }
@@ -63,54 +63,62 @@ hr {
 .buttons {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 0.625rem; /* Space between the grid items */
-    padding: 0.625rem;
+    gap: 10px; /* Space between the grid items */
+    padding: 10px;
     justify-content: center; /* Center the grid items horizontally */
 }
 
-#programs, #placeholder {
+
+#programs {
     background-color: rgb(15,15,15);
-    height: 18.75rem;
-    width: 100%; /* Make it responsive */
-    max-width: 18.75rem; /* Limit max width */
+    height: 300px;
+    width: 300px;
     color: white;
-    border-radius: 1.875rem;
+    border-radius: 30px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack elements vertically */
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto; /* Center the #programs container itself */
 }
 
-#programs-text, #placeholder-text {
-    font-size: 1.25rem;
-    margin-bottom: 0.625rem;
+#programs-text {
+    font-size: large;
+    margin-bottom: 10px; /* Adds space between the first and second <p> */
 }
 
-#programs-desc, #placeholder-desc {
-    padding: 0 0.25rem;
-    font-size: 0.875rem;
+#programs-desc {
+    padding-left: 4px; 
+    padding-right: 4px;
+    font-size: small;
     color: rgb(255,255,255);
     text-align: center;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-    #bottom-header-text {
-        padding: 3.125rem 0;
-    }
+#placeholder {
+    background-color: rgb(15,15,15);
+    height: 300px;
+    width: 300px;
+    color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto; /* Center the #programs container itself */
+}
 
-    .bottom-header {
-        font-size: 1.5rem;
-    }
+#placeholder-text {
+    font-size: large;
+    margin-bottom: 10px; /* Adds space between the first and second <p> */
+}
 
-    #programs, #placeholder {
-        height: 15rem;
-        max-width: 15rem;
-    }
-
-    #programs-text, #placeholder-text {
-        font-size: 1rem;
-    }
+#placeholder-desc {
+    padding-left: 4px; 
+    padding-right: 4px;
+    font-size: small;
+    color: rgb(255,255,255);
+    text-align: center;
 }
