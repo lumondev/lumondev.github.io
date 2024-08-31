@@ -13,7 +13,7 @@
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
 }
 
 #main-nav .nav-item {
@@ -30,3 +30,4 @@
     transition: background-color 0.3s ease-in-out;
     background-color: rgb(60,60,60);
 }
+
