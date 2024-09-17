@@ -3,70 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Iframe Content</title>
+    <title>Nested Iframes with Dynamic URL</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #iframe-container {
-            margin-top: 20px;
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
         iframe {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
+            border: none; /* Optional: remove the default border around the iframe */
+        }
+        #controls {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+        #urlInput {
+            width: 80%;
+            padding: 8px;
+        }
+        #updateButton {
+            padding: 8px 16px;
         }
     </style>
 </head>
 <body>
-    <h1>Load Content into Iframe</h1>
-    <label for="url-input">Enter URL:</label>
-    <input type="text" id="url-input" placeholder="https://example.com">
-    <button id="load-button">Load Content</button>
-    
-    <div id="iframe-container">
-        <iframe id="content-iframe"></iframe>
+    <div id="controls">
+        <input type="text" id="urlInput" placeholder="Enter URL for the fifth iframe" />
+        <button id="updateButton">Update URL</button>
     </div>
 
     <script>
-        document.getElementById('load-button').addEventListener('click', function() {
-            const url = document.getElementById('url-input').value;
-            const iframe = document.getElementById('content-iframe');
+        // Create the first iframe
+        var i1 = document.createElement("iframe");
+        i1.width = "100%";
+        i1.height = "100%";
+        document.body.appendChild(i1);
 
-            if (!url) {
-                console.error('No URL provided');
-                return;
-            }
+        // Create the second iframe and append it to the first
+        var i2 = document.createElement("iframe");
+        i2.width = "100%";
+        i2.height = "100%";
+        i1.contentDocument.open();
+        i1.contentDocument.write('<!DOCTYPE html><html><head><style>html, body { height: 100%; margin: 0; padding: 0; }</style></head><body></body></html>');
+        i1.contentDocument.close();
+        i1.contentDocument.body.appendChild(i2);
 
-            // Validate URL format
-            try {
-                new URL(url);
-            } catch (_) {
-                console.error('Invalid URL format');
-                return;
-            }
+        // Create the third iframe and append it to the second
+        var i3 = document.createElement("iframe");
+        i3.width = "100%";
+        i3.height = "100%";
+        i2.contentDocument.open();
+        i2.contentDocument.write('<!DOCTYPE html><html><head><style>html, body { height: 100%; margin: 0; padding: 0; }</style></head><body></body></html>');
+        i2.contentDocument.close();
+        i2.contentDocument.body.appendChild(i3);
 
-            // Fetch the content from the URL
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    // Create a Blob URL to hold the content
-                    const blob = new Blob([html], { type: 'text/html' });
-                    const blobUrl = URL.createObjectURL(blob);
+        // Create the fourth iframe and append it to the third
+        var i4 = document.createElement("iframe");
+        i4.width = "100%";
+        i4.height = "100%";
+        i3.contentDocument.open();
+        i3.contentDocument.write('<!DOCTYPE html><html><head><style>html, body { height: 100%; margin: 0; padding: 0; }</style></head><body></body></html>');
+        i3.contentDocument.close();
+        i3.contentDocument.body.appendChild(i4);
 
-                    // Set the iframe's source to the Blob URL
-                    iframe.src = blobUrl;
-                })
-                .catch(error => {
-                    console.error('Error fetching the content:', error);
-                });
-        });
+        // Create the fifth iframe and append it to the fourth
+        var i5 = document.createElement("iframe");
+        i5.width = "100%";
+        i5.height = "100%";
+        i5.src = "https://www.example.com"; // Initial src value
+        i4.contentDocument.open();
+        i4.contentDocument.write('<!DOCTYPE html><html><head><style>html, body { height: 100%; margin: 0; padding: 0; }</style></head><body></body></html>');
+        i4.contentDocument.close();
+        i4.contentDocument.body.appendChild(i5);
+
+        // Function to update the src of the fifth iframe
+        function updateIframeSrc() {
+            var newUrl = document.getElementById('urlInput').value;
+            i5.src = newUrl;
+        }
+
+        // Add event listener to the button
+        document.getElementById('updateButton').addEventListener('click', updateIframeSrc);
     </script>
 </body>
 </html>
