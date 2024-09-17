@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Iframe Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #iframe-container {
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Load Content into Iframe</h1>
+    <label for="url-input">Enter URL:</label>
+    <input type="text" id="url-input" placeholder="https://example.com">
+    <button id="load-button">Load Content</button>
+    
+    <div id="iframe-container">
+        <iframe id="content-iframe"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('load-button').addEventListener('click', function() {
+            const url = document.getElementById('url-input').value;
+            const iframe = document.getElementById('content-iframe');
+
+            // Fetch the content from the URL
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    // Create a Blob URL to hold the content
+                    const blob = new Blob([html], { type: 'text/html' });
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    // Set the iframe's source to the Blob URL
+                    iframe.src = blobUrl;
+                })
+                .catch(error => {
+                    console.error('Error fetching the content:', error);
+                });
+        });
+    </script>
+</body>
+</html>
