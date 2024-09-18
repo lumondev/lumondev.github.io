@@ -1,4 +1,5 @@
-<html lang="en"></html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,62 +19,146 @@
             width: 20%;
             height: 100%;
             background-color: rgb(20,20,20);
-            float: left;
-			padding: 5px;
+            padding: 5px;
             margin-right: 10px;
         }
-        #lbuttons {
+        .lbuttons {
             display: flex;
             background-color: rgb(20,20,20);
             width: 100%;
             height: 5%;
             margin-top: 5px;
-            margin-bottom: 5px;
             align-items: center;
             justify-content: left;
             font-size: larger;
             padding-left: 5px;
+            cursor: pointer;
         }
-        #lbuttons:hover {
-        	background-color: rgb(15,15,15);
-        	transition: background-color 0.3s ease
+        .lbuttons:hover {
+            background-color: rgb(15,15,15);
+            transition: background-color 0.3s ease;
         }
-        .right {
+        .right-container {
+            flex-grow: 1; /*to make the container grow*/
+            display: flex; /*using a flex box to arrange all the content*/
+            flex-direction: column; /*stacking stuff vertically if needed*/
+            overflow-y: auto; /*enabling scrolling if needed*/
+        }
+        .home-right, .programs-right, .games-right {
             background-color: rgb(20,20,20);
-            flex-grow: 1;
-            overflow-y: auto;
+            flex-grow: 1; /*to make the section grow*/
+            display: none; /* Hide sections by default */
+            opacity: 0; /* Initial opacity */
+            transition: opacity 0.5s ease; /* Transition for fade effect */
         }
-        #top {
+        .active {
+            display: block; /* Show active section */
+            opacity: 1; /* Fade in */
+        }
+        #home-top, #programs-top, #games-top {
             background-color: rgb(15,15,15);
             height: 300px;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
-        #title {
+        h1, p {
             margin: 5px;
+            text-align: center; /* Center text */
         }
-        #desc {
-            margin: 5px;
+        #home-desc, #programs-desc, #games-desc {
             color: darkgray;
-            width: 30%;
+            width: 70%; /* Adjusted width for better layout */
         }
     </style>
     <title>lumondev.github.io</title>
 </head>
 <body>
     <div class="leftbar">
-        <div id="lbuttons">home</div>
-        <div id="lbuttons">programs</div>
-        <div id="lbuttons">games</div>
+        <div class="lbuttons" id="home">Home</div>
+        <div class="lbuttons" id="programs">Programs</div>
+        <div class="lbuttons" id="games">Games</div>
     </div>
-    <div class="right">
-        <div id="top">
-            <h1 id="title">home</h1>
-            <p id="desc">this is the home page of lumondev.github.io, you make continue exploring throughout my website.</p>
+    <div class="right-container">
+        <div class="home-right active" id="homeRight"> <!-- Active class for default view -->
+            <div id="home-top">
+                <h1 id="home-title">Home</h1>
+                <p id="home-desc">This is the home page of lumondev.github.io, you can continue exploring throughout my website.</p>
+            </div>
+        </div>
+        <div class="programs-right" id="programsRight"> <!-- No active class initially -->
+            <div id="programs-top">
+                <h1 id="programs-title">Programs</h1>
+                <p id="programs-desc">This is the programs page of lumondev.github.io, explore various programs here.</p>
+            </div>
+        </div>
+        <div class="games-right" id="gamesRight"> <!-- Games section -->
+            <div id="games-top">
+                <h1 id="games-title">Games</h1>
+                <p id="games-desc">This is the games page of lumondev.github.io, check out the various games here.</p>
+            </div>
         </div>
     </div>
-</body>a
+    <script>
+        const homeClick = document.getElementById('home');
+        const programsClick = document.getElementById('programs');
+        const gamesClick = document.getElementById('games');
+        const homeRight = document.getElementById('homeRight');
+        const programsRight = document.getElementById('programsRight');
+        const gamesRight = document.getElementById('gamesRight');
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function showTab(activeTab) {
+            const tabs = [homeRight, programsRight, gamesRight];
+
+            tabs.forEach(tab => {
+                if (tab === activeTab) {
+                    tab.style.display = 'flex'; // Show active tab
+                } else {
+                    tab.style.display = 'none'; // Hide inactive tabs
+                }
+            });
+        }
+
+        homeClick.addEventListener('click', function() {
+            homeRight.classList.add('active'); // Show home
+            programsRight.classList.remove('active'); // Hide programs
+            gamesRight.classList.remove('active'); // Hide games
+        });
+
+        programsClick.addEventListener('click', function() {
+            homeRight.classList.remove('active'); // Hide home
+            programsRight.classList.add('active'); // Show programs
+            gamesRight.classList.remove('active'); // Hide games
+        });
+
+        gamesClick.addEventListener('click', function() {
+            homeRight.classList.remove('active'); // Hide home
+            programsRight.classList.remove('active'); // Hide programs
+            gamesRight.classList.add('active'); // Show games
+        });
+        initializeTabs();
+    </script>
+</body>
 </html>
