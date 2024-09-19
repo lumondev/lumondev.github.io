@@ -9,11 +9,11 @@
             margin: 10px;
             color: white;
             font-family: sans-serif;
-            overflow: hidden; /*if the element is overflowing the viewport, it will hide the scroll bar*/
+            overflow: hidden;
         }
         body {
-            display: flex; /*arranging stuff with the flex box*/
-            height: calc(100vh - 20px); /*used ai for this shi idk how it works*/
+            display: flex;
+            height: calc(100vh - 20px);
         }
         .leftbar {
             width: 20%;
@@ -36,24 +36,28 @@
         }
         .lbuttons:hover {
             background-color: rgb(15,15,15);
-            transition: background-color 0.3s ease; /*animations, i hope i can remember them so i wont have to search up how to do it.*/
+            transition: background-color 0.3s ease;
         }
         .right-container {
-            flex-grow: 1; /*to make the container grow*/
-            display: flex; /*using a flex box to arrange all the content*/
-            flex-direction: column; /*stacking stuff vertically if needed*/
-            overflow-y: auto; /*enabling scrolling if needed*/
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative; /* Allows absolute positioning of tab contents */
+            overflow: hidden;
         }
-        .home-right, .programs-right, .games-right {
+        .tab-content {
             background-color: rgb(20,20,20);
-            flex-grow: 1; /*to make the section grow*/
-            display: none; /* Hide sections by default */
-            opacity: 0; /* Initial opacity */
-            transition: opacity 0.5s ease; /* Transition for fade effect */
+            flex-grow: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease;
+            visibility: hidden; /* Hide from layout */
         }
-        .active {
-            display: block; /* Show active section */
+        .tab-content.active {
             opacity: 1; /* Fade in */
+            visibility: visible; /* Make visible */
         }
         #home-top, #programs-top, #games-top {
             background-color: rgb(15,15,15);
@@ -65,35 +69,35 @@
         }
         h1, p {
             margin: 5px;
-            text-align: center; /* Center text */
+            text-align: center;
         }
         #home-desc, #programs-desc, #games-desc {
             color: darkgray;
-            width: 70%; /* Adjusted width for better layout */
+            width: 70%;
         }
     </style>
     <title>lumondev.github.io</title>
 </head>
 <body>
     <div class="leftbar">
-        <div class="lbuttons" id="home">Home</div>
-        <div class="lbuttons" id="programs">Programs</div>
-        <div class="lbuttons" id="games">Games</div>
+        <div class="lbuttons" data-target="homeRight">Home</div>
+        <div class="lbuttons" data-target="programsRight">Programs</div>
+        <div class="lbuttons" data-target="gamesRight">Games</div>
     </div>
     <div class="right-container">
-        <div class="home-right active" id="homeRight"> <!-- Active class for default view -->
+        <div class="tab-content active" id="homeRight">
             <div id="home-top">
                 <h1 id="home-title">Home</h1>
                 <p id="home-desc">This is the home page of lumondev.github.io, you can continue exploring throughout my website.</p>
             </div>
         </div>
-        <div class="programs-right" id="programsRight"> <!-- No active class initially -->
+        <div class="tab-content" id="programsRight">
             <div id="programs-top">
                 <h1 id="programs-title">Programs</h1>
                 <p id="programs-desc">This is the programs page of lumondev.github.io, explore various programs here.</p>
             </div>
         </div>
-        <div class="games-right" id="gamesRight"> <!-- Games section -->
+        <div class="tab-content" id="gamesRight">
             <div id="games-top">
                 <h1 id="games-title">Games</h1>
                 <p id="games-desc">This is the games page of lumondev.github.io, check out the various games here.</p>
@@ -101,31 +105,22 @@
         </div>
     </div>
     <script>
-        const homeClick = document.getElementById('home');
-        const programsClick = document.getElementById('programs');
-        const gamesClick = document.getElementById('games');
-        const homeRight = document.getElementById('homeRight');
-        const programsRight = document.getElementById('programsRight');
-        const gamesRight = document.getElementById('gamesRight');
+        const buttons = document.querySelectorAll('.lbuttons');
+        const contents = document.querySelectorAll('.tab-content');
 
-        homeClick.addEventListener('click', function() {
-            homeRight.classList.add('active'); // Show home
-            programsRight.classList.remove('active'); // Hide programs
-            gamesRight.classList.remove('active'); // Hide games
-        });
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
 
-        programsClick.addEventListener('click', function() {
-            homeRight.classList.remove('active'); // Hide home
-            programsRight.classList.add('active'); // Show programs
-            gamesRight.classList.remove('active'); // Hide games
+                contents.forEach(content => {
+                    if (content.id === targetId) {
+                        content.classList.add('active'); // Show active content
+                    } else {
+                        content.classList.remove('active'); // Hide other contents
+                    }
+                });
+            });
         });
-
-        gamesClick.addEventListener('click', function() {
-            homeRight.classList.remove('active'); // Hide home
-            programsRight.classList.remove('active'); // Hide programs
-            gamesRight.classList.add('active'); // Show games
-        });
-        
     </script>
 </body>
 </html>
