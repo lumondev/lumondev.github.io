@@ -9,11 +9,11 @@
             margin: 10px;
             color: white;
             font-family: sans-serif;
-            overflow: hidden;
+            overflow: hidden; /*if the element is overflowing the viewport, it will hide the scroll bar*/
         }
         body {
-            display: flex;
-            height: calc(100vh - 20px);
+            display: flex; /*arranging stuff with the flex box*/
+            height: calc(100vh - 20px); /*used ai for this shi idk how it works*/
         }
         .leftbar {
             width: 20%;
@@ -36,7 +36,7 @@
         }
         .lbuttons:hover {
             background-color: rgb(15,15,15);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /*animations, i hope i can remember them so i wont have to search up how to do it.*/
         }
         .right-container {
             flex-grow: 1; /*to make the container grow*/
@@ -108,39 +108,6 @@
         const programsRight = document.getElementById('programsRight');
         const gamesRight = document.getElementById('gamesRight');
 
-        function setCookie(name, value, days) {
-            let expires = "";
-            if (days) {
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-        function showTab(activeTab) {
-            const tabs = [homeRight, programsRight, gamesRight];
-
-            tabs.forEach(tab => {
-                if (tab === activeTab) {
-                    tab.style.display = 'flex'; // Show active tab
-                } else {
-                    tab.style.display = 'none'; // Hide inactive tabs
-                }
-            });
-        }
-
         homeClick.addEventListener('click', function() {
             homeRight.classList.add('active'); // Show home
             programsRight.classList.remove('active'); // Hide programs
@@ -158,7 +125,7 @@
             programsRight.classList.remove('active'); // Hide programs
             gamesRight.classList.add('active'); // Show games
         });
-        initializeTabs();
+        
     </script>
 </body>
 </html>
